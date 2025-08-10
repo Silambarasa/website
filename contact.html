@@ -5,70 +5,286 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact - ByteBridge</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
+    /* Additional styles for contact page while maintaining theme consistency */
+    .intro-text {
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      text-align: center;
+      font-size: 1.1rem;
+      color: #4b5563;
+      line-height: 1.7;
+    }
+
     .contact-container {
       max-width: 900px;
-      margin: auto;
-      padding: 20px;
+      margin: 0 auto 3rem;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 0 1rem;
     }
 
     .contact-card {
       background: white;
-      padding: 25px;
+      padding: 2rem 1.5rem;
       border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       text-align: center;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+      transform: translateX(-100%);
+      transition: transform 0.5s ease;
+    }
+
+    .contact-card.show::before {
+      transform: translateX(0);
     }
 
     .contact-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-card i {
+      font-size: 2.5rem;
+      color: #1e3a8a;
+      margin-bottom: 1rem;
+      display: block;
     }
 
     .contact-card h3 {
-      margin-bottom: 10px;
       font-size: 1.4rem;
-      color: #333;
+      font-weight: 600;
+      color: #1e3a8a;
+      margin-bottom: 0.75rem;
     }
 
     .contact-card p {
-      margin: 5px 0;
       font-size: 1rem;
-      color: #555;
+      color: #4b5563;
+      margin: 0;
+    }
+
+    .contact-card a {
+      color: #3b82f6;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .contact-card a:hover {
+      color: #1e3a8a;
+    }
+
+    .contact-form-container {
+      max-width: 700px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+
+    .contact-form-container h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #1e3a8a;
+      text-align: center;
+      margin-bottom: 1.5rem;
     }
 
     .contact-form {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 1.2rem;
+      background: white;
+      padding: 2.5rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-form::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+    }
+
+    .form-group {
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
     }
 
     .contact-form input,
     .contact-form textarea {
-      padding: 12px;
-      border: 1px solid #ccc;
+      padding: 0.9rem 1rem;
+      border: 1px solid #d1d5db;
       border-radius: 8px;
       font-size: 1rem;
       width: 100%;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: #1e3a8a;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 120px;
     }
 
     .contact-form button {
-      background: linear-gradient(135deg, #7b2ff7, #f107a3);
+      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
       color: white;
-      padding: 12px;
+      padding: 1rem 2rem;
       border: none;
       border-radius: 8px;
-      cursor: pointer;
       font-size: 1rem;
-      transition: background 0.3s ease;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-form button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .contact-form button:hover::before {
+      left: 100%;
     }
 
     .contact-form button:hover {
-      background: linear-gradient(135deg, #f107a3, #7b2ff7);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
+    }
+
+    .additional-info {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .info-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      text-align: center;
+      transition: all 0.4s ease;
+    }
+
+    .info-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .info-card i {
+      font-size: 2rem;
+      color: #1e3a8a;
+      margin-bottom: 1rem;
+    }
+
+    .info-card h4 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #1e3a8a;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-card p {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .content h1 {
+        font-size: 2rem;
+      }
+
+      .intro-text {
+        font-size: 1rem;
+      }
+
+      .contact-card {
+        padding: 1.5rem;
+      }
+
+      .contact-card h3 {
+        font-size: 1.2rem;
+      }
+
+      .contact-card i {
+        font-size: 2rem;
+      }
+
+      .contact-form-container h2 {
+        font-size: 1.6rem;
+      }
+
+      .contact-form {
+        padding: 2rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .contact-form {
+        padding: 1.5rem 1rem;
+      }
+      
+      .contact-container,
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -79,38 +295,212 @@
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
       <a href="courses.html">Courses</a>
+       <a href="resources.html">Resources</a>
       <a href="contact.html" class="active">Contact</a>
     </nav>
   </header>
 
-  <section class="content">
-    <h1 style="text-align:center;">Contact Us</h1>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Get In Touch</h1>
+      <p>Ready to start your tech journey? We're here to guide you every step of the way.</p>
+      <a href="#contact-info" class="btn">Contact Us</a>
+    </div>
+  </section>
+
+  <section class="content" id="contact-info">
+    <h2>Contact Us</h2>
+    <p class="intro-text">
+      We're here to help you start your tech journey. Reach out with any questions about our courses, mentorship, or community. Our team is ready to assist you!
+    </p>
+
     <div class="contact-container">
-      <!-- Contact Info -->
-      <div class="contact-card">
+      <div class="contact-card show">
+        <i class="fas fa-envelope"></i>
         <h3>Email</h3>
         <p><a href="mailto:bytebridge@gmail.com">bytebridge@gmail.com</a></p>
       </div>
-      <div class="contact-card">
+      <div class="contact-card show">
+        <i class="fas fa-phone"></i>
         <h3>Phone</h3>
         <p><a href="tel:+919600489566">+91 9600489566</a></p>
       </div>
+      <div class="contact-card show">
+        <i class="fas fa-clock"></i>
+        <h3>Response Time</h3>
+        <p>We typically respond within 24 hours</p>
+      </div>
     </div>
 
-    <!-- Contact Form -->
-    <div style="max-width:700px;margin:50px auto;">
-      <h2 style="text-align:center;margin-bottom:20px;">Send Us a Message</h2>
-      <form class="contact-form">
-        <input type="text" placeholder="Your Name" required>
-        <input type="email" placeholder="Your Email" required>
-        <textarea rows="5" placeholder="Your Message" required></textarea>
-        <button type="submit">Send Message</button>
+    <div class="contact-form-container">
+      <h2>Send Us a Message</h2>
+      <form class="contact-form show" action="#" method="POST">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number (Optional)</label>
+          <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+        </div>
+
+        <div class="form-group">
+          <label for="course">Course Interest (Optional)</label>
+          <select id="course" name="course" style="padding: 0.9rem 1rem; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1rem; width: 100%; box-sizing: border-box; font-family: inherit;">
+            <option value="">Select a course</option>
+            <option value="programming">Programming Mastery</option>
+            <option value="web-dev">Full Stack Web Development</option>
+            <option value="cloud">Cloud Computing & DevOps</option>
+            <option value="ai">Generative AI Basics</option>
+            <option value="networking">Networking Fundamentals</option>
+            <option value="database">Database Management</option>
+            <option value="os">Operating Systems</option>
+            <option value="software-eng">Software Engineering</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="Tell us how we can help you..." required></textarea>
+        </div>
+        
+        <button type="submit">
+          <i class="fas fa-paper-plane" style="margin-right: 0.5rem;"></i>
+          Send Message
+        </button>
       </form>
     </div>
+
+    <div class="additional-info">
+      <h2 style="text-align: center; color: #1e3a8a; font-size: 1.8rem; margin-bottom: 1rem;">Why Choose ByteBridge?</h2>
+      <div class="info-grid">
+        <div class="info-card show">
+          <i class="fas fa-graduation-cap"></i>
+          <h4>Expert Instructors</h4>
+          <p>Learn from industry professionals with years of real-world experience</p>
+        </div>
+        <div class="info-card show">
+          <i class="fas fa-users"></i>
+          <h4>Small Class Sizes</h4>
+          <p>Get personalized attention with our focused, intimate learning environment</p>
+        </div>
+        <div class="info-card show">
+          <i class="fas fa-certificate"></i>
+          <h4>Industry Certificates</h4>
+          <p>Earn recognized certifications that boost your career prospects</p>
+        </div>
+        <div class="info-card show">
+          <i class="fas fa-handshake"></i>
+          <h4>Career Support</h4>
+          <p>Get job placement assistance and career guidance throughout your journey</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2>Ready to Learn?</h2>
+    <p>Explore our courses and join the ByteBridge community to kickstart your tech career today.</p>
+    <a href="courses.html" class="btn">Browse Courses</a>
   </section>
 
   <footer>
     <p>&copy; 2025 ByteBridge. All rights reserved.</p>
   </footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const contactCards = document.querySelectorAll('.contact-card');
+      const infoCards = document.querySelectorAll('.info-card');
+      const contactForm = document.querySelector('.contact-form');
+
+      // Animate contact cards
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const element = entry.target;
+            if (element.classList.contains('contact-card') || element.classList.contains('info-card')) {
+              const index = Array.from(element.parentNode.children).indexOf(element);
+              setTimeout(() => {
+                element.classList.add('show');
+              }, index * 150);
+            }
+          }
+        });
+      }, { threshold: 0.1 });
+
+      // Observe all animated elements
+      contactCards.forEach(card => observer.observe(card));
+      infoCards.forEach(card => observer.observe(card));
+
+      // Animate form
+      setTimeout(() => {
+        contactForm.classList.add('show');
+      }, 400);
+
+      // Form submission handling
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = new FormData(contactForm);
+        const name = formData.get('name');
+        
+        // Simple success feedback
+        const button = contactForm.querySelector('button');
+        const originalText = button.innerHTML;
+        
+        button.innerHTML = '<i class="fas fa-check" style="margin-right: 0.5rem;"></i>Message Sent!';
+        button.style.background = '#10b981';
+        button.disabled = true;
+        
+        // Reset form after 3 seconds
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          button.style.background = '';
+          button.disabled = false;
+          contactForm.reset();
+          
+          // Show thank you message
+          alert(`Thank you, ${name}! We'll get back to you within 24 hours.`);
+        }, 3000);
+      });
+
+      // Smooth scroll for anchor links
+      const anchorLinks = document.querySelectorAll('a[href^="#"]');
+      anchorLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = link.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+
+      // Form field animations
+      const formInputs = document.querySelectorAll('.contact-form input, .contact-form textarea, .contact-form select');
+      formInputs.forEach(input => {
+        input.addEventListener('focus', () => {
+          input.parentElement.style.transform = 'translateY(-2px)';
+        });
+        
+        input.addEventListener('blur', () => {
+          input.parentElement.style.transform = '';
+        });
+      });
+    });
+  </script>
 </body>
 </html>

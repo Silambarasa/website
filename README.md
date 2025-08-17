@@ -1,2 +1,1 @@
-## 🚀 Live Demo  
-🔗 [**silambarasa.github.io/website**](https://silambarasa.github.io/website/index.html)
+[![Website Preview](screenshot.png)](https://silambarasa.github.io/website/index.html)

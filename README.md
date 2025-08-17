@@ -1,1 +1,1 @@
-[![Website Preview](screenshot.png)](https://silambarasa.github.io/website/index.html)
+[![Website](https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https://silambarasa.github.io/website/index.html)](https://silambarasa.github.io/website/index.html)
